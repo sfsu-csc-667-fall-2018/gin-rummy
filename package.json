@@ -1,0 +1,24 @@
+{
+  "name": "gin-rummy",
+  "version": "1.0.0",
+  "description": "Rummy Card Game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfsu-csc-667-fall-2018/gin-rummy.git"
+  },
+  "author": "Sandesh, An, Michael, Mustafa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sfsu-csc-667-fall-2018/gin-rummy/issues"
+  },
+  "homepage": "https://github.com/sfsu-csc-667-fall-2018/gin-rummy#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
