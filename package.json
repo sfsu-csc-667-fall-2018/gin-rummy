@@ -5,8 +5,13 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node app.js"
+    "start": "node app.js",
+    "db:create:migration": "sequelize migration:generate --name ",
+    "db:migrate" : "sequelize db:migrate",
+    "db:rollback": "sequelize db:migrate:undo"
+
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sfsu-csc-667-fall-2018/gin-rummy.git"
@@ -19,7 +24,11 @@
   "homepage": "https://github.com/sfsu-csc-667-fall-2018/gin-rummy#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "pg-promise": "^8.5.0",
+    "sequelize": "^4.39.0",
+    "sequelize-cli": "^5.1.0"
   }
 }
