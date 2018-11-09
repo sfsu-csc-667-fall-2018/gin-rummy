@@ -1,13 +1,17 @@
  
 
 
-const express = require('express');
+const express = require('express')();
 
 const app = express();
 
 const bodyParser = require('body-parser');
 
 const pgp = require('pg-promise')()
+
+var http = require('http').Server(express);
+
+var io = require('socket.io')(http);
 
 // const cn = {
 //     host: 'ec2-107-20-211-10.compute-1.amazonaws.com',
@@ -33,7 +37,7 @@ app.use(bodyParser.json())
 
 // view engine 'EJS' setup
 
-app.set('view engine', 'ejs')
+//app.set('view engine', 'ejs')
 
 
 
@@ -44,8 +48,7 @@ app.set('view engine', 'ejs')
 // Controllers
 
 
-require('./controllers/home.js')(app)
-
+/*require('./controllers/home.js')(app)
 
 app.get('/tests', (req, res)=> {
 
@@ -58,16 +61,21 @@ db.any(`INSERT INTO test_table ("testString") VALUES ('Hello at $
 	console.log(error)
 })
 
-})
+});*/
 
+app.get('/', function(req,res) {
+	res.sendFile(__dirname + '/views/home.html');
+});
 
-
-
-
-
-
-
-
+io.on('connection', function(socket) {
+	console.log('a user connected');
+	socket.on('chat message',function(msg) {
+		console.log('message' + msg);
+	})
+	socket.on('disconnect', function() {
+		console.log('a user disconnected');
+	});
+});
 
 // server start
 
