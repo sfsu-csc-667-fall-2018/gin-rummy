@@ -7,11 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "db:create:migration": "sequelize migration:generate --name ",
-    "db:migrate" : "sequelize db:migrate",
+    "db:migrate": "sequelize db:migrate",
     "db:rollback": "sequelize db:migrate:undo"
-
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sfsu-csc-667-fall-2018/gin-rummy.git"

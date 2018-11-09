@@ -45,7 +45,7 @@ app.set('view engine', 'ejs')
 
 
 require('./controllers/home.js')(app)
-
+require('./controllers/lobby.js')(app)
 
 app.get('/tests', (req, res)=> {
 
