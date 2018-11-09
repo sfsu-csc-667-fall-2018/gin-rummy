@@ -47,6 +47,11 @@ app.set('view engine', 'ejs')
 require('./controllers/home.js')(app)
 
 
+
+
+
+
+
 app.get('/tests', (req, res)=> {
 
 db.any(`INSERT INTO test_table ("testString") VALUES ('Hello at $
@@ -59,6 +64,57 @@ db.any(`INSERT INTO test_table ("testString") VALUES ('Hello at $
 })
 
 })
+
+
+
+app.get('/create', (req, res)=> {
+
+	  db.any(`create table test_table ("id" serial PRIMARY KEY, "createdAt" date not null default CURRENT_DATE, "testString" VARCHAR(255) not null)`)
+	  .then( results => res.json(results))
+	  .catch(error => {
+	  	console.log(error)
+
+	  })
+})
+
+
+app.get('/players', (req, res)=> {
+
+	console.log('playes called')
+
+	  db.any(`create table players 
+	  	("player_id" serial PRIMARY KEY,
+	  	 "points"  INT,
+	  	 "username" VARCHAR(255) not null,
+	  	 "password" VARCHAR(255) not null, 
+	  	 "wins" INT)
+	  	`)
+	  .then( results => res.send(results))
+	  .catch(error => {
+
+	  	  console.log(error)
+	  })
+})
+
+
+
+
+
+app.get('/cards', (req, res) => {
+
+	   db.any(`create table cards
+	   	("card_id" serial PRIMARY KEY, 
+	   	"suit" text not null,
+	   	"rank" INT not null)`)
+	   .then(results=> res.send(results))
+	   .catch(error => {
+	   	   console.log(error)
+	   })
+})
+
+
+
+
 
 
 
