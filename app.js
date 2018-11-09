@@ -1,15 +1,15 @@
  
 
 
-const express = require('express')();
+const express = require('express');
 
 const app = express();
 
 const bodyParser = require('body-parser');
 
-const pgp = require('pg-promise')()
+const pgp = require('pg-promise')();
 
-var http = require('http').Server(express);
+var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
 
@@ -48,9 +48,13 @@ app.use(bodyParser.json())
 // Controllers
 
 
-/*require('./controllers/home.js')(app)
+//require('./controllers/home.js')(app)
 
-app.get('/tests', (req, res)=> {
+app.get('/', function(req,res) {
+	res.sendFile(__dirname + '/views/home.html');
+});
+
+/*app.get('/tests', (req, res)=> {
 
 db.any(`INSERT INTO test_table ("testString") VALUES ('Hello at $
 {Date.now()}')`)
@@ -63,14 +67,10 @@ db.any(`INSERT INTO test_table ("testString") VALUES ('Hello at $
 
 });*/
 
-app.get('/', function(req,res) {
-	res.sendFile(__dirname + '/views/home.html');
-});
-
 io.on('connection', function(socket) {
 	console.log('a user connected');
 	socket.on('chat message',function(msg) {
-		console.log('message' + msg);
+		io.emit('chat message', msg);
 	})
 	socket.on('disconnect', function() {
 		console.log('a user disconnected');
@@ -79,8 +79,7 @@ io.on('connection', function(socket) {
 
 // server start
 
-
-app.listen(process.env.PORT || 2000, () => {
+http.listen(process.env.PORT || 2000, () => {
 
 	  console.log ('Server Running ....')
 })
