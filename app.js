@@ -54,6 +54,9 @@ app.get('/', function(req,res) {
 	res.sendFile(__dirname + '/views/home.html');
 });
 
+require('./controllers/home.js')(app)
+require('./controllers/lobby.js')(app)
+
 /*app.get('/tests', (req, res)=> {
 
 db.any(`INSERT INTO test_table ("testString") VALUES ('Hello at $
