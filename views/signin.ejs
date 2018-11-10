@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign In Page</title>
+    <style>
+        body{
+            font-size: 20px;
+        }
+
+        .container{
+            border: 2px solid rgb(58, 58, 58);
+            padding: 50px;
+            margin: auto;
+            width: 60%;
+        }
+
+        input[type=text], input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+        font-size: 14px;
+}
+
+        .signinbtn{
+            background-color: rgba(134, 134, 134, 0.39);
+            color: rgb(0, 0, 0);
+            padding: 16px 20px;
+            margin:auto;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.8;
+            font-size: 16px;
+            
+        }        
+
+        .signinbtn:hover{
+            opacity: 1;
+        }
+
+        .register{
+            margin: auto;
+        }
+
+
+
+
+
+        </style>
+</head>
+
+<body>
+    <form>
+        <div class="container">
+            <h1>Sign In</h1>
+
+
+            <div class="textfield">
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+
+                <label for="password"><b>Password</b></label>
+                <input type="text" placeholder="Enter Password" name="password" required>
+            </div>
+
+            <button type="submit" class="signinbtn">Sign In</button>
+
+            <div class="register">
+                <p>Don't have an account yet? <a href="#">Register Here</a>
+
+
+            </div>
+
+
+    </form>
+</body>
+
+</html>
