@@ -49,6 +49,7 @@ require('./controllers/home')(app)
 require('./controllers/register')(app, db, authenticate, register)
 require('./controllers/login')(app, db, login)
 require('./controllers/lobby')(app)
+require('./controllers/logout')(app)
 
 
 

@@ -1,8 +1,11 @@
 module.exports = (app, con, loginUser)=> {
         
          app.get('/login', (req, res)=> {
-                 
-            res.render('login.ejs', {error: ''})
+
+            if(!req.session.user)
+                res.render('login.ejs', {error: ''})
+                else
+                res.render('lobby.ejs', {username: req.session.user})
          })
 
 
