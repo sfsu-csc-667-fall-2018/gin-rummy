@@ -9,14 +9,6 @@ const bodyParser = require('body-parser');
 
 const pgp = require('pg-promise')()
 
-// const cn = {
-//     host: 'ec2-107-20-211-10.compute-1.amazonaws.com',
-//     port: 5432,
-//     database: 'db2nri7htqji8r',
-//     user: 'pqyojbqtfktkul',
-//     password: '260e1926d0ad07604071987177dad8e30e0b381d74a0523c8accc59c10320330'
-// };
-
 const db = pgp('postgres://pqyojbqtfktkul:260e1926d0ad07604071987177dad8e30e0b381d74a0523c8accc59c10320330@ec2-107-20-211-10.compute-1.amazonaws.com:5432/db2nri7htqji8r?ssl=true')
 //db.connect()
 
@@ -38,13 +30,18 @@ app.set('view engine', 'ejs')
 
 
 
+//models
 
+
+const authenticate = require('./models/authenticate')
+const register = require('./models/register')
 
 
 // Controllers
 
 
-require('./controllers/home.js')(app)
+require('./controllers/home')(app)
+require('./controllers/register')(app, db, authenticate, register)
 
 
 
@@ -80,7 +77,6 @@ app.get('/create', (req, res)=> {
 
 app.get('/players', (req, res)=> {
 
-	console.log('playes called')
 
 	  db.any(`create table players 
 	  	("player_id" serial PRIMARY KEY,
