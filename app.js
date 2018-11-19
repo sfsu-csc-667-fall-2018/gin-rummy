@@ -15,6 +15,8 @@ const socketIO = require('socket.io')
 
 const db = require('./config/config')
 
+const path = require('path')
+
 
 
 // middleware setups
@@ -24,6 +26,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(session({ secret: 'secret_word', resave: false,
 saveUninitialized: true, cookie: {expires: false}}))
+app.use(express.static(path.join(__dirname, 'assets'))); 
+
 
 
 // view engine 'EJS' setup
@@ -50,6 +54,7 @@ require('./controllers/login')(app, db, login)
 require('./controllers/lobby')(app)
 require('./controllers/logout')(app)
 require('./controllers/chat')(app)
+require('./controllers/game')(app)
 
 
 // 
@@ -58,13 +63,21 @@ const server = http.createServer(app)
 
 let io = socketIO(server)
 
+let socketCount = 0
+
 io.on('connection', (socket)=> {
 	   
 	console.log('new user connected')
 
-	socket.on('here', ()=> {
+	socket.on('newUser', ()=> {
 
-		  console.log('connected here ...')
+		socketCount++
+
+		if(socketCount === 2) {
+			  
+			socket.emit('game_start')
+		}
+
 	})
 
 })

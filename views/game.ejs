@@ -1,0 +1,35 @@
+<html>
+
+<head>
+
+     <title>Rummy Game </title>
+
+</head>
+
+
+<body>
+
+<script src ="/socket.io/socket.io.js"></script>
+
+
+<h1 id="game_state"> Waiting ....  </h1>
+
+<script>
+
+    let socket = io()
+
+    socket.emit('newUser')
+    
+    socket.on('game_start', ()=> {
+          
+          document.getElementById("game_start").innerHTML = "game started"
+    })
+
+    </script>
+
+
+</body>
+
+
+
+</html>
