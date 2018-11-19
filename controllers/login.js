@@ -17,8 +17,11 @@ module.exports = (app, con, loginUser)=> {
             loginPromise.then(results=> {
                   
                     if (results.status ==='success') {
+
+                        req.session.user = username
                           
-                        res.render('lobby.ejs')
+                        console.log('user' + req.session.user)
+                        res.render('lobby.ejs', {username: req.session.user})
                     }
 
                     else {

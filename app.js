@@ -1,11 +1,13 @@
  
 
 
-const express = require('express');
+const express = require('express')
 
-const app = express();
+const app = express()
 
-const bodyParser = require('body-parser');
+const session = require('express-session')
+
+const bodyParser = require('body-parser')
 
 const pgp = require('pg-promise')()
 
@@ -21,6 +23,8 @@ const db = pgp('postgres://pqyojbqtfktkul:260e1926d0ad07604071987177dad8e30e0b38
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+app.use(session({ secret: 'secret_word', resave: false,
+  saveUninitialized: true, cookie: {expires: false}}))
 
 
 // view engine 'EJS' setup

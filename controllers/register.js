@@ -16,7 +16,8 @@ module.exports = (app, con, authenticate, register)=> {
         authPromise.then((result)=> {
             if(result.status === 'success'){
             register(con, username, password)
-            res.render('lobby.ejs')
+            req.session.user = username
+            res.render('lobby.ejs', {username: req.session.user})
             }
             else {
             res.render('register.ejs', {error: 'username already exists'})
