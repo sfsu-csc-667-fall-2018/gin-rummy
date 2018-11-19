@@ -49,7 +49,7 @@
             <p>Fill out the form to create an account</p>
            
             <% if (error)  { %>
-            <p style="color:red;">Username already exists</p>
+            <p style="color:red;"><%=error%></p>
             <% } %>
 
 
@@ -69,7 +69,7 @@
             <button type="submit" class="registerbtn">Register</button>
 
             <div class="signin">
-                <p>Already have an account? <a href="#">Sign in</a>
+                <p>Already have an account? <a href="/login">Sign in</a>
 
 
             </div>

@@ -35,6 +35,7 @@ app.set('view engine', 'ejs')
 
 const authenticate = require('./models/authenticate')
 const register = require('./models/register')
+const login = require('./models/login')
 
 
 // Controllers
@@ -42,6 +43,7 @@ const register = require('./models/register')
 
 require('./controllers/home')(app)
 require('./controllers/register')(app, db, authenticate, register)
+require('./controllers/login')(app, db, login)
 require('./controllers/lobby')(app)
 
 
