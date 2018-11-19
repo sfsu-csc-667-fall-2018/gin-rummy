@@ -43,10 +43,14 @@
 </head>
 
 <body>
-    <form>
+    <form action="/register" method="POST">
         <div class="container">
             <h1>Register</h1>
             <p>Fill out the form to create an account</p>
+           
+            <% if (error)  { %>
+            <p style="color:red;">Username already exists</p>
+            <% } %>
 
 
 

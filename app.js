@@ -42,6 +42,7 @@ const register = require('./models/register')
 
 require('./controllers/home')(app)
 require('./controllers/register')(app, db, authenticate, register)
+require('./controllers/lobby')(app)
 
 
 

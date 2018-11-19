@@ -3,7 +3,7 @@ module.exports = (app, con, authenticate, register)=> {
 
     app.get('/register', (req, res)=> {
            
-          res.render('register.ejs')
+          res.render('register.ejs', {error: ''})
     })
 
 
@@ -13,18 +13,17 @@ module.exports = (app, con, authenticate, register)=> {
           let password = req.body.password
 
         const authPromise = authenticate(con, username)
-
-        
-        console.log("AUTH ===== " + authPromise)
-
         authPromise.then((result)=> {
-              
-            res.send(result)
+            if(result.status === 'success'){
+            register(con, username, password)
+            res.render('lobby.ejs')
+            }
+            else {
+            res.render('register.ejs', {error: 'username already exists'})
+            }        
         })
-
         .catch((error)=> {
-              
-            res.send(error)
+              console.log(error)
         })
     })
 
