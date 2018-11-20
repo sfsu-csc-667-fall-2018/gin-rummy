@@ -11,7 +11,14 @@ const bodyParser = require('body-parser')
 
 const http = require('http')
 
-const socketIO = require('socket.io')
+const db = pgp('postgres://pqyojbqtfktkul:260e1926d0ad07604071987177dad8e30e0b381d74a0523c8accc59c10320330@ec2-107-20-211-10.compute-1.amazonaws.com:5432/db2nri7htqji8r?ssl=true')
+
+var http = require('http').createServer(app);
+
+var io = require('socket.io')(http);
+
+var ejs = require('ejs');
+//db.connect()
 
 const db = require('./config/config')
 
@@ -161,7 +168,7 @@ app.get('/create', (req, res)=> {
 	  .catch(error => {
 	  	console.log(error)
 
-	  })
+	  })	
 })
 
 
@@ -198,6 +205,17 @@ app.get('/cards', (req, res) => {
 	   })
 })
 
+io.on('connection', function(socket) {
+	console.log('a user connected');
+	socket.on('chat message',function(msg) {
+		let message = msg.username + ": " + msg.val
+		console.log("msg: " + message)
+		io.emit('chat message',message);
+	})
+	socket.on('disconnect', function() {
+		console.log('a user disconnected');
+	});
+});
 
 
 
