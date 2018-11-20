@@ -21,8 +21,10 @@
     socket.emit('newUser')
     
     socket.on('game_start', ()=> {
+
+        console.log('game started')
           
-          document.getElementById("game_start").innerHTML = "game started"
+          document.getElementById("game_state").innerHTML = "game started"
     })
 
     </script>

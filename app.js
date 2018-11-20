@@ -57,7 +57,55 @@ require('./controllers/chat')(app)
 require('./controllers/game')(app)
 
 
+// Classes
+
+let Card = require('./Classes/Card')
+let Deck = require('./Classes/Deck')
+let deck = new Deck()
+
+for (let i=0; i < 4; i++) {
+	 
+	console.log(i)
+
+	for (let j = 1; j <= 13; j++) {
+		  
+		if (i === 0) {
+			 
+			let suit = "spade"
+			let card = new Card(j, suit)
+			deck.addCard(card)
+		}
+
+		if (i ===1) {
+			 
+			let suit = "diamond"
+			let card = new Card(j,suit)
+			deck.addCard(card)
+
+		}
+
+		if (i === 2) {
+			let suit = "heart"
+			let card = new Card(j,suit)
+			deck.addCard(card)
+
+		}
+
+		if (i === 3) {
+			let suit = "club"
+			let card = new Card(j,suit)
+			deck.addCard(card)
+
+
+		}
+	}
+}
+
+console.log(deck.getDeck())
+
 // 
+
+
 
 const server = http.createServer(app)
 
@@ -65,19 +113,28 @@ let io = socketIO(server)
 
 let socketCount = 0
 
-io.on('connection', (socket)=> {
+
+io.sockets.on('connection', (socket)=> {
 	   
 	console.log('new user connected')
+	socketCount++
 
 	socket.on('newUser', ()=> {
 
-		socketCount++
+		console.log(socketCount)
 
-		if(socketCount === 2) {
+		if(socketCount >= 2) {
 			  
-			socket.emit('game_start')
+			io.sockets.emit('game_start')
 		}
 
+	})
+
+	socket.on('disconnect', ()=> {
+		  
+		console.log('user disconnected ....')
+
+		socketCount--
 	})
 
 })
