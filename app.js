@@ -9,7 +9,7 @@ const session = require('express-session')
 
 const bodyParser = require('body-parser')
 
-const pgp = require('pg-promise')()
+const http = require('http')
 
 const db = pgp('postgres://pqyojbqtfktkul:260e1926d0ad07604071987177dad8e30e0b381d74a0523c8accc59c10320330@ec2-107-20-211-10.compute-1.amazonaws.com:5432/db2nri7htqji8r?ssl=true')
 
@@ -20,7 +20,9 @@ var io = require('socket.io')(http);
 var ejs = require('ejs');
 //db.connect()
 
+const db = require('./config/config')
 
+const path = require('path')
 
 
 
@@ -30,7 +32,9 @@ var ejs = require('ejs');
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(session({ secret: 'secret_word', resave: false,
-  saveUninitialized: true, cookie: {expires: false}}))
+saveUninitialized: true, cookie: {expires: false}}))
+app.use(express.static(path.join(__dirname, 'assets'))); 
+
 
 
 // view engine 'EJS' setup
@@ -56,12 +60,34 @@ require('./controllers/register')(app, db, authenticate, register)
 require('./controllers/login')(app, db, login)
 require('./controllers/lobby')(app)
 require('./controllers/logout')(app)
+require('./controllers/chat')(app)
+require('./controllers/game')(app)
 
 
+// 
 
+const server = http.createServer(app)
 
+let io = socketIO(server)
 
+let socketCount = 0
 
+io.on('connection', (socket)=> {
+	   
+	console.log('new user connected')
+
+	socket.on('newUser', ()=> {
+
+		socketCount++
+
+		if(socketCount === 2) {
+			  
+			socket.emit('game_start')
+		}
+
+	})
+
+})
 
 app.get('/tests', (req, res)=> {
 
@@ -145,11 +171,10 @@ io.on('connection', function(socket) {
 
 
 
-
 // server start
 
 
-http.listen(process.env.PORT || 2000, () => {
+server.listen(process.env.PORT || 2000, () => {
 
 	  console.log ('Server Running ....')
 })
