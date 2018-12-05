@@ -6,6 +6,6 @@ module.exports = (app)=> {
         if(req.session.user)
           res.render('lobby.ejs', {username:req.session.user})
           else
-          res.render('register.ejs', {error: ''})
+          res.render('login.ejs', {error: ''})
     })
 }
