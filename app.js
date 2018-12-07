@@ -66,6 +66,8 @@ require('./controllers/game')(app)
 
 let Card = require('./Classes/Card')
 let Deck = require('./Classes/Deck')
+let Game = require('./Classes/Game')
+let Player = require('./Classes/Player')
 let deck = new Deck()
 
 for (let i=0; i < 4; i++) {
@@ -106,7 +108,7 @@ for (let i=0; i < 4; i++) {
 	}
 }
 
-console.log(deck.getDeck())
+//console.log(deck.getDeck())
 
 // 
 
@@ -116,33 +118,29 @@ const server = http.createServer(app)
 
 let io = socketIO(server)
 
-let socketCount = 0
+
+let lobbyChat = io.of('/chat')
 
 
-io.sockets.on('connection', (socket)=> {
-	   
-	console.log('new user connected')
-	socketCount++
-
-	socket.on('newUser', ()=> {
-
-		console.log(socketCount)
-
-		if(socketCount >= 2) {
-			  
-			io.sockets.emit('game_start')
-		}
-
+lobbyChat.on('connection', function(socket) {
+	console.log('lobby');
+	socket.on('chat message',function(msg) {
+		console.log('chat message')
+		let message = msg.user + ": " + msg.val
+		console.log("msg: " + message)
+		lobbyChat.emit('chat message', message);
 	})
+	lobbyChat.on('disconnect', function() {
+		console.log('a user disconnected');
+	});
+});
 
-	socket.on('disconnect', ()=> {
-		  
-		console.log('user disconnected ....')
 
-		socketCount--
-	})
 
-})
+
+
+
+
 
 app.get('/tests', (req, res)=> {
 
@@ -202,28 +200,6 @@ app.get('/cards', (req, res) => {
 	   	   console.log(error)
 	   })
 })
-
-io.on('connection', function(socket) {
-	console.log('a user connected');
-	socket.on('chat message',function(msg) {
-		let message = msg.user + ": " + msg.val
-		console.log("msg: " + message)
-		io.emit('chat message',message);
-	})
-	socket.on('disconnect', function() {
-		console.log('a user disconnected');
-	});
-});
-
-
-
-
-
-
-
-
-
-
 
 
 // server start

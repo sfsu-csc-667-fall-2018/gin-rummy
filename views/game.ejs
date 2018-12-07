@@ -14,18 +14,75 @@
 
 <h1 id="game_state"> Waiting ....  </h1>
 
+<h1>Your cards</h1>
+
+<div id="your">
+         
+</div>
+
+<h1>Stock</h1>
+<div id="stock">
+
+
+</div>
+
+<h1> Oppponent</h1>
+
+<div id="opponent">
+
+
+    
+</div>
+
 <script>
 
     let socket = io()
 
-    socket.emit('newUser')
+    socket.emit('newUser', '<%=username%>')
     
-    socket.on('game_start', ()=> {
+    socket.on('game_start', (game)=> {
+
+        let playerName = '<%=username%>'
+
+        console.log("PlayerName: " + playerName)
+
+        let cards = getUserCards(playerName, game)
+
+
+        for (let i =0; i < cards.length; i++) {
+              
+              let card = cards[i]
+              let p = document.createElement('p')
+              let text = document.createTextNode(card.rank+card.suit)
+              p.appendChild(text)
+              document.getElementById("your").appendChild(p)
+        }
+    
 
         console.log('game started')
           
           document.getElementById("game_state").innerHTML = "game started"
+
+          
     })
+
+    const getUserCards = (player, game)=> {
+           
+           if(game.players[0].username === player) {
+
+            console.log(player)
+            console.log(game.players[0].username)
+                
+               return game.players[0].cards
+           }
+
+           else {
+
+            console.log(game.players[1].cards)
+                 
+                return game.players[1].cards
+           }
+    }
 
     </script>
 
