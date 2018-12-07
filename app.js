@@ -69,6 +69,8 @@ let Card = require('./Classes/Card')
 let Deck = require('./Classes/Deck')
 let Game = require('./Classes/Game')
 let Player = require('./Classes/Player')
+let ChatBox = require('./Classes/ChatBox')
+
 let deck = new Deck()
 
 for (let i=0; i < 4; i++) {
@@ -109,32 +111,20 @@ for (let i=0; i < 4; i++) {
 	}
 }
 
-//console.log(deck.getDeck())
 
-// 
+let game = new Game ();
+
+
 
 
 
 const server = http.createServer(app)
 
 let io = socketIO(server)
+new ChatBox('/lobby', io)
+new ChatBox('/game', io)
 
 
-let lobbyChat = io.of('/chat')
-
-
-lobbyChat.on('connection', function(socket) {
-	console.log('lobby');
-	socket.on('chat message',function(msg) {
-		console.log('chat message')
-		let message = msg.user + ": " + msg.val
-		console.log("msg: " + message)
-		lobbyChat.emit('chat message', message);
-	})
-	lobbyChat.on('disconnect', function() {
-		console.log('a user disconnected');
-	});
-});
 
 
 
