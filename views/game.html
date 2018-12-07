@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- 
+	Front End UI for Game 
+	(Still in progress)
+ -->
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="container">
+	<div id="game">
+		<div id="opponent"></div>
+		<div id="player"></div>
+		<div id="gameState">
+			<div id="turn">Turn: 
+				<div id="user-turn">Player 1</div>
+			</div>
+		</div>
+	</div>
+	<div id="border">
+		<hr/>
+	</div>
+	<div id="gameBoard">
+		<div id="gameState">Press 'Start' to begin game</div>
+	</div>
+	<div id="border">
+		<hr/>
+	</div>
+	<div id="buttons">
+		<button id="start">START</button>
+		<button id="sort" type="button" disabled>SORT</button>
+		<button id="knock" type="button" disabled>KNOCK</button>
+		<button id="draw" type="button" disabled>DRAW</button>
+		<button id="pickup" type="button" disabled>PICKUP</button>
+	</div>
+	<div>
+</div>
+<script type="text/javascript" src="game.js"></script>
+<script type="text/javascript">
+	GinRummy.init();
+</script>
+</body>
+</html>

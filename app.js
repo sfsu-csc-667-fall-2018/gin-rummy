@@ -58,6 +58,7 @@ require('./controllers/register')(app, db, authenticate, register)
 require('./controllers/login')(app, db, login)
 require('./controllers/lobby')(app)
 require('./controllers/logout')(app)
+require('./controllers/scoreboard')(app)
 require('./controllers/chat')(app)
 require('./controllers/game')(app)
 
