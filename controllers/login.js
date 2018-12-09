@@ -5,7 +5,8 @@ module.exports = (app, con, loginUser)=> {
             if(!req.session.user)
                 res.render('login.ejs', {error: ''})
                 else
-                res.render('lobby.ejs', {username: req.session.user})
+                //res.render('lobby.ejs', {username: req.session.user})
+                res.render('game.ejs', {username: req.session.user})
          })
 
 

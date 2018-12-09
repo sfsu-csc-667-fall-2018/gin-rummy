@@ -4,6 +4,7 @@
 <head>
     <title>Sign In Page</title>
     <style>
+        .navbar{font-size: 18px;}
         body{
             font-size: 20px;
         }
@@ -44,7 +45,7 @@
 </head>
 
 <body>
-        <% include navbar %>
+        <div className="navbar"> <% include navbar %> </div>
         
     <form action="/login" method="POST">
         <div class="container">

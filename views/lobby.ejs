@@ -1,21 +1,28 @@
 <!doctype html>
 <html>
+        
 <h1> Welcome to the Lobby, <%=username%></h1>
+
+<div style='float:right;'>
+
+
+</div>
 
 
 <style>
-    div.lobbyBox {display: block; width: 60%; border: 5px solid black; padding: 5%; margin: 25px;}
-    * { margin: 0; padding: 0; box-sizing: border-box;}
+    .navbar{font-size: 18px;}
+    .lobbyBox {display: inline-block; width: 60%; border: 5px solid black; padding: 5%;}
     body { font: 13px Helvetica, Arial;}
-    form { background: #000; padding: 3px; position:fixed; bottom: 0; width: 30%; float:right}
-    form input { border: 0; padding: 10px; width: 90%;}
-    form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+    #chat_box { background: #000; padding: 3px; position:fixed; bottom: 0; width: 30%; float:right}
+    #m { border: 0; padding: 10px; width: 90%;}
+    #send { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
     #messages { list-style-type: none; margin: 0; padding: 0; width: 30%; padding-top:20%}
     #messages li { padding: 5px 10px;}
     #messages li:nth-child(odd) { background: #eee;}
 </style>
 
 <script>
+ 
  
 
 </script>
@@ -24,8 +31,8 @@
 <script type="text/javascript"> 
 
 $(function() {
-    var socket = io();
-    $('form').submit(function() { 
+    var socket = io('/lobby');
+    $('#chat_box').submit(function() { 
           socket.emit('chat message',{val: $('#m').val(), user: "<%=username%>"});
           $('#m').val('');
           return false;
@@ -40,8 +47,8 @@ $(function() {
 
 <body>
     <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <form action ='' id="chat_box">
+      <input id="m" autocomplete="off" /><button id="send">Send</button>
+        
   </body>
 </html>

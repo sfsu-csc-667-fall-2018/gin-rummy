@@ -1,8 +1,13 @@
 module.exports = (app)=> {
       
 
-    app.get('/game', (req, res)=> {
-           
-           res.render('game.ejs')
+    app.post('/game/:id', (req, res)=> {
+
+        console.log("GAMEEEEEEEE")
+
+         if(!req.session.user)
+         res.render('login.ejs', {error: ''})
+           else
+           res.render('game.ejs', {username: req.session.user})
     })
 }
