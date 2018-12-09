@@ -13,7 +13,7 @@ var GinRummy = (function() {
 		return this.suit;
 	}
 
-	Card.prototype.showCard = function() {
+	Card.prototype.showCard = function(i) {
 		var suitUnicodes = {
 				'CLUBS' : '&#9827;',
 				'HEARTS' : '&#9829;',
@@ -24,7 +24,7 @@ var GinRummy = (function() {
 		// console.log(suitUnicodes);
 
 		// append <div class="discard"></div>
-		return `<div><button id="discard" type="button" disabled>Discard</button>
+		return `<div><button id="discard" type="button" value="` + i + `" disabled>Discard</button>
 			<div class="card ` + this.suit + `">
 			<div class="rank">` + this.rank + `</div>
 			<div class="suit">`+ suitUnicodes[this.suit] + `</div>
@@ -40,8 +40,8 @@ var GinRummy = (function() {
 		this.hand.push(card);
 	}
 
-	Player.prototype.discardCard = function (card) {
-		this.hand.pop(card);
+	Player.prototype.discardCard = function (i) {
+		this.hand.splice(i, 1);
 	}
 
 	Player.prototype.sortHand = function (card) {
@@ -56,7 +56,7 @@ var GinRummy = (function() {
 		var hand = "";
 		if( this.element == 'player') {
 			for(var i = 0; i < this.hand.length; i++) {
-				hand += this.hand[i].showCard();
+				hand += this.hand[i].showCard(i);
 			}
 			return hand;
 		} else {
@@ -158,21 +158,21 @@ var GinRummy = (function() {
 		}
 
 		this.sortHandler = function() {
-
+			
 		}
 
 		this.drawHandler = function() {
 			var card = Deck.deck.pop()
 			this.player.addCard(card)
 
-			document.getElementById(this.player.element).innerHTML += card.showCard();
+			document.getElementById(this.player.element).innerHTML += card.showCard(this.player.hand.length-1);
 
 			if(this.player.checkHandSize()) {
 				var discardButtons = document.querySelectorAll('[id^="discard"]');
 
 				for( var i = 0; i < discardButtons.length; i++) {
 					discardButtons[i].disabled = false;
-					discardButtons[i].addEventListener('click', this.discardEvent.bind(this))
+					discardButtons[i].addEventListener('click', this.discardEvent.bind(this, i))
 				}
 			}
 		}
@@ -190,12 +190,13 @@ var GinRummy = (function() {
 
 		// Event when card is drawn, player
 		// must discard a card 
-		this.discardEvent = function() {
+		this.discardEvent = function(i) {
 			// 1. Append discard buttons to div's of each card 
 			// 2. Discard Button has onclick function to remove card from hand
 			// 3. Removed card is pushed to Trash Pile
 
-			// console.log("What up?")
+			this.player.discardCard(i)
+			document.getElementById(this.player.element).innerHTML = this.player.showHand();
 		}
 
 		this.init = function() {
@@ -215,7 +216,6 @@ var GinRummy = (function() {
 		this.startGame = function() {
 
 			Deck.init();
-			// console.log('did we make it');
 			Deck.shuffleDeck();
 
 			this.opponent = new Player(Deck.dealHand() , 'opponent');
@@ -224,7 +224,7 @@ var GinRummy = (function() {
 
 			document.getElementById(this.opponent.element).innerHTML = this.opponent.showHand();
 			document.getElementById(this.player.element).innerHTML = this.player.showHand();
-		
+			
 		}
 	}
 
