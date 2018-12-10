@@ -138,22 +138,9 @@ var GinRummy = (function() {
 		console.log("quads: "+ quadFlag);
 	}
 
-	// var Trash = new function() {
-	// 	this.trash = [];
-	// 	this.init = function() {
-	// 		this.trash = [];
-	// 	}
-	// 	this.showTrash = function () {
-	// 		var trash = "";
-	// 		for(var i = 0; i < this.trash.length; i++) {
-	// 			trash += this.trash[i].showTrashCard(i);
-	// 		}
-	// 		return trash;
-	// 	}
-	// }
-
-	function Trash(trash) {
+	function Trash(trash, oldTrash) {
 		this.trash = trash;
+		this.oldTrash = oldTrash;
 	}
 
 	Trash.prototype.addTrash = function(card) {
@@ -166,6 +153,15 @@ var GinRummy = (function() {
 
 	Trash.prototype.showTrash = function() {
 		var trash = "";
+
+		if (this.trash.length > 1) {
+			this.oldTrash.push(this.trash[0]);
+			this.trash.shift();
+		}
+
+		if (this.trash.length == 0 && this.oldTrash.length > 0) {
+			this.trash.push(this.oldTrash.pop());
+		}
 		for(var i = 0; i < this.trash.length; i++) {
 			trash += this.trash[i].showTrashCard(i);
 		}
@@ -261,7 +257,7 @@ var GinRummy = (function() {
 
 		this.drawHandler = function() {
 			this.drawButton.disabled = true;
-			this.drawButton.disabled = true;
+			this.sortButton.disabled = true;
 
 			var card = Deck.deck.pop()
 			this.player.addCard(card)
@@ -275,8 +271,6 @@ var GinRummy = (function() {
 					discardButtons[i].disabled = false;
 					discardButtons[i].addEventListener('click', this.discardEvent.bind(this, i))
 				}
-
-
 			}
 		}
 
@@ -350,7 +344,8 @@ var GinRummy = (function() {
 			this.player = new Player( Deck.dealHand(), 'player');
 
 			var tempTrash = [];
-			this.trash = new Trash( tempTrash ); 
+			var tempOldTrash = [];
+			this.trash = new Trash( tempTrash, tempOldTrash ); 
 
 			this.trash.addTrash(Deck.popTop());
 
