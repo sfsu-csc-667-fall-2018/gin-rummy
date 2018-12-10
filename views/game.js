@@ -36,6 +36,14 @@ var GinRummy = (function() {
 		this.element = element;
 	}
 
+	Player.prototype.getHand = function() {
+		return this.hand;
+	}
+
+	Player.prototype.getElement = function() {
+		return this.element
+	}
+
 	Player.prototype.addCard = function (card) {
 		this.hand.push(card);
 	}
@@ -44,7 +52,7 @@ var GinRummy = (function() {
 		this.hand.splice(i, 1);
 	}
 
-	Player.prototype.sortHand = function (card) {
+	Player.prototype.sortHand = function () {
 
 	}
 
@@ -70,6 +78,48 @@ var GinRummy = (function() {
 		} else {
 			return false;
 		}
+	}
+
+	Player.prototype.checkTrips = function(hand) {
+		function filterHand(array, rank) {
+			return array.filter((value) => rank === value);
+		}
+
+		var temp = [];
+		for(var i = 0; i < hand.length; i++) {
+			temp.push(filterHand(hand, hand[i]));
+		}
+		
+		var tripFlag = false;
+		for(var i = 0; i < temp.length; i++) {
+			if( temp[i].length == 3) {
+				tripFlag = true;
+			}
+		}
+		console.log("trips: " + tripFlag);
+	}
+
+	Player.prototype.checkQuads = function(hand) {
+		function filterHand(array, rank) {
+			return array.filter((value) => rank === value);
+		}
+
+		var temp = [];
+		for(var i = 0; i < hand.length; i++) {
+			temp.push(filterHand(hand, hand[i]));
+		}
+		
+		var tripFlag = false;
+		for(var i = 0; i < temp.length; i++) {
+			if( temp[i].length == 4) {
+				tripFlag = true;
+			}
+		}
+		console.log("quads: "+ tripFlag);
+	}
+
+	Player.prototype.checkStraight = function() {
+
 	}
 
 	var Trash = new function() {
@@ -154,11 +204,12 @@ var GinRummy = (function() {
 			this.sortButton.disabled = false
 			this.pickupButton.disabled = false
 			this.drawButton.disabled = false
-			this.knockButton.disabled = false
+			this.knockButton.disabled = true
 		}
 
 		this.sortHandler = function() {
-			
+			this.player.checkTrips(this.player.getHand());
+			this.player.checkQuads(this.player.getHand());
 		}
 
 		this.drawHandler = function() {
@@ -174,6 +225,8 @@ var GinRummy = (function() {
 					discardButtons[i].disabled = false;
 					discardButtons[i].addEventListener('click', this.discardEvent.bind(this, i))
 				}
+
+
 			}
 		}
 
