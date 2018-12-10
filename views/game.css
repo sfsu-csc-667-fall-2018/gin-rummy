@@ -1,0 +1,106 @@
+#game {
+	position: relative;
+	padding-top: 20px;
+}
+
+#opponent {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*flex-direction: column;*/
+	height: 214px;
+	width: 100%;
+}
+
+#trash {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 214px;
+	width: 100%;
+}
+
+#player {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*flex-direction: column;*/
+	height: 214px;
+	width: 100%;
+} 
+
+#trashpile {
+	position: relative;
+	background-color: #f3f6d2;
+	border-radius: 5px;
+}
+
+#discard {
+	position: relative;
+	margin: 2px;
+	background-color: #f3f6d2;
+	border-radius: 5px;
+}
+
+.card {
+	position: relative;
+	width: 70px;
+	height: 120px;
+	background-color: #f3f6d2;
+	display: flex;
+	margin: 2px;
+	font-size: 28px;
+	text-align: center;
+}
+
+#discard:hover {
+	cursor: pointer;
+}
+
+.suit {
+	margin: auto;
+	font-size: 65px;
+}
+
+.cardback {
+	position: relative;
+	width: 90px;
+	height: 130px;
+	/*background-color: black;*/
+	background-image: url('../assets/cardback.jpg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: flex;
+	margin: 2px;
+	border-radius: 5px;
+	/*border: 2px solid red;*/
+}
+
+.trashpile {
+	position: relative;
+	width: 90px;
+	height: 130px;
+	background-color: red;
+	display: flex;
+	border-radius: 5px;
+}
+
+.HEARTS {
+	color: red;
+}
+
+.DIAMONDS {
+	color: red;
+}
+
+.SPADES {
+	color: black;
+}
+
+.CLUBS {
+	color: black;
+}

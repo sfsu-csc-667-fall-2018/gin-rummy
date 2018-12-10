@@ -20,15 +20,31 @@ var GinRummy = (function() {
 				'DIAMONDS' : '&#9830;',
 				'SPADES' : '&#9824;'
 			}
-		// console.log(this.suit);
-		// console.log(suitUnicodes);
 
-		// append <div class="discard"></div>
-		return `<div><button id="discard" type="button" value="` + i + `" disabled>Discard</button>
+		return `<button id="discard" type="button" value="` + i + `" disabled>
 			<div class="card ` + this.suit + `">
 			<div class="rank">` + this.rank + `</div>
 			<div class="suit">`+ suitUnicodes[this.suit] + `</div>
-			</div></div>`;
+			</div></button>`;
+	}
+
+	Card.prototype.showOpCard = function(i) {
+		return `<div class="cardback" value"` + i + `"></div>`;
+	}
+
+	Card.prototype.showTrashCard = function(i) {
+		var suitUnicodes = {
+				'CLUBS' : '&#9827;',
+				'HEARTS' : '&#9829;',
+				'DIAMONDS' : '&#9830;',
+				'SPADES' : '&#9824;'
+			}
+
+		return `<button id="trashpile" value="`+ i + `">
+			<div class="card ` + this.suit + `">
+			<div class="rank">` + this.rank + `</div>
+			<div class="suit">`+ suitUnicodes[this.suit] + `</div>
+			</button>`;
 	}
 
 	function Player(hand, element) {
@@ -49,7 +65,8 @@ var GinRummy = (function() {
 	}
 
 	Player.prototype.discardCard = function (i) {
-		this.hand.splice(i, 1);
+		var temp = this.hand.splice(i, 1);		
+		return(temp.pop());
 	}
 
 	Player.prototype.sortHand = function () {
@@ -68,6 +85,9 @@ var GinRummy = (function() {
 			}
 			return hand;
 		} else {
+			for(var i = 0; i < this.hand.length; i++) {
+				hand += this.hand[i].showOpCard(i);
+			}
 			return hand;
 		}
 	}
@@ -109,24 +129,47 @@ var GinRummy = (function() {
 			temp.push(filterHand(hand, hand[i]));
 		}
 		
-		var tripFlag = false;
+		var quadFlag = false;
 		for(var i = 0; i < temp.length; i++) {
 			if( temp[i].length == 4) {
-				tripFlag = true;
+				quadFlag = true;
 			}
 		}
-		console.log("quads: "+ tripFlag);
+		console.log("quads: "+ quadFlag);
 	}
 
-	Player.prototype.checkStraight = function() {
+	// var Trash = new function() {
+	// 	this.trash = [];
+	// 	this.init = function() {
+	// 		this.trash = [];
+	// 	}
+	// 	this.showTrash = function () {
+	// 		var trash = "";
+	// 		for(var i = 0; i < this.trash.length; i++) {
+	// 			trash += this.trash[i].showTrashCard(i);
+	// 		}
+	// 		return trash;
+	// 	}
+	// }
 
+	function Trash(trash) {
+		this.trash = trash;
 	}
 
-	var Trash = new function() {
-		this.trash = [];
-		this.init = function() {
-			this.trash = [];
+	Trash.prototype.addTrash = function(card) {
+		this.trash.push(card);
+	}
+
+	Trash.prototype.popTrash = function() {
+		return(this.trash.pop());
+	}
+
+	Trash.prototype.showTrash = function() {
+		var trash = "";
+		for(var i = 0; i < this.trash.length; i++) {
+			trash += this.trash[i].showTrashCard(i);
 		}
+		return trash;
 	}
 
 	var Deck = new function() {
@@ -193,6 +236,10 @@ var GinRummy = (function() {
 			}
 			return hand;
 		}
+
+		this.popTop = function() {
+			return this.deck.pop();
+		}
 	}
 
 	var Game = new function() {
@@ -202,7 +249,7 @@ var GinRummy = (function() {
 			Game.startGame();
 			this.startButton.disabled = true
 			this.sortButton.disabled = false
-			this.pickupButton.disabled = false
+			// this.pickupButton.disabled = false
 			this.drawButton.disabled = false
 			this.knockButton.disabled = true
 		}
@@ -213,6 +260,9 @@ var GinRummy = (function() {
 		}
 
 		this.drawHandler = function() {
+			this.drawButton.disabled = true;
+			this.drawButton.disabled = true;
+
 			var card = Deck.deck.pop()
 			this.player.addCard(card)
 
@@ -231,13 +281,29 @@ var GinRummy = (function() {
 		}
 
 		this.pickupHandler = function() {
-			var card = Trash.trash.pop()
+			var card = this.trash.popTrash();
 			this.player.addCard(card)
+
+			document.getElementById(this.player.element).innerHTML = this.player.showHand();
+			document.getElementById('trash').innerHTML = this.trash.showTrash();
+
+			if(this.player.checkHandSize()) {
+				this.drawButton.disabled = true;
+				this.sortButton.disabled = true;
+				var discardButtons = document.querySelectorAll('[id^="discard"]');
+
+				for( var i = 0; i < discardButtons.length; i++) {
+					discardButtons[i].disabled = false;
+					discardButtons[i].addEventListener('click', this.discardEvent.bind(this, i))
+				}
+
+
+			}
 		}
 
 		this.knockHandler = function() {
 			this.drawButton.disabled = true
-			this.pickupButton.disabled = true
+			// this.pickupButton.disabled = true
 			this.sortButton.disabled = true
 		}
 
@@ -248,8 +314,16 @@ var GinRummy = (function() {
 			// 2. Discard Button has onclick function to remove card from hand
 			// 3. Removed card is pushed to Trash Pile
 
-			this.player.discardCard(i)
+			this.trash.addTrash(this.player.discardCard(i));
+
 			document.getElementById(this.player.element).innerHTML = this.player.showHand();
+			document.getElementById('trash').innerHTML = this.trash.showTrash();
+
+			this.pickupButton = document.getElementById('trashpile');
+			this.pickupButton.addEventListener('click', this.pickupHandler.bind(this));
+
+			this.drawButton.disabled = false
+			this.sortButton.disabled = false
 		}
 
 		this.init = function() {
@@ -257,13 +331,13 @@ var GinRummy = (function() {
 			this.sortButton = document.getElementById('sort')
 			this.knockButton = document.getElementById('knock')
 			this.drawButton = document.getElementById('draw')
-			this.pickupButton = document.getElementById('pickup')
+			// this.pickupButton = document.getElementById('pickup')
 
 			this.startButton.addEventListener('click', this.startHandler.bind(this))
 			this.sortButton.addEventListener('click', this.sortHandler.bind(this))
 			this.knockButton.addEventListener('click', this.knockHandler.bind(this))
 			this.drawButton.addEventListener('click', this.drawHandler.bind(this))
-			this.pickupButton.addEventListener('click', this.pickupHandler.bind(this))
+			// this.pickupButton.addEventListener('click', this.pickupHandler.bind(this))
 		}
 
 		this.startGame = function() {
@@ -275,9 +349,18 @@ var GinRummy = (function() {
 
 			this.player = new Player( Deck.dealHand(), 'player');
 
+			var tempTrash = [];
+			this.trash = new Trash( tempTrash ); 
+
+			this.trash.addTrash(Deck.popTop());
+
 			document.getElementById(this.opponent.element).innerHTML = this.opponent.showHand();
 			document.getElementById(this.player.element).innerHTML = this.player.showHand();
-			
+			document.getElementById("trash").innerHTML = this.trash.showTrash();
+
+			this.pickupButton = document.getElementById('trashpile');
+
+			this.pickupButton.addEventListener('click', this.pickupHandler.bind(this));
 		}
 	}
 
