@@ -32,6 +32,10 @@ var GinRummy = (function() {
 		return `<div class="cardback" value"` + i + `"></div>`;
 	}
 
+	Card.prototype.showOp2Card = function(i) {				
+		return `<div class="cardback-side" value"` + i + `"></div>`;
+	}
+
 	Card.prototype.showTrashCard = function(i) {
 		var suitUnicodes = {
 				'CLUBS' : '&#9827;',
@@ -84,16 +88,30 @@ var GinRummy = (function() {
 				hand += this.hand[i].showCard(i);
 			}
 			return hand;
-		} else {
+		} 
+		else if( this.element == 'opponent') {
 			for(var i = 0; i < this.hand.length; i++) {
 				hand += this.hand[i].showOpCard(i);
 			}
 			return hand;
 		}
+		else if( this.element == 'opponent2') {
+			for(var i = 0; i < this.hand.length; i++) {
+				hand += this.hand[i].showOp2Card(i);
+			}
+			return hand;
+		}
+		else {
+			for(var i = 0; i < this.hand.length; i++) {
+				hand += this.hand[i].showOp2Card(i);
+			}
+			return hand;
+		}
+
 	}
 
 	Player.prototype.checkHandSize = function() {
-		if (this.hand.length > 10) {
+		if (this.hand.length > 7) {
 			return true;
 		} else {
 			return false;
@@ -225,7 +243,7 @@ var GinRummy = (function() {
 
 		this.dealHand = function() {
 			var hand = [];
-			for ( var i = 0; i < 10; i++) {
+			for ( var i = 0; i < 7; i++) {
 				var temp = this.deck.pop();
 				// console.log("Your hand:" + temp);
 				hand.push(temp);
@@ -341,6 +359,10 @@ var GinRummy = (function() {
 
 			this.opponent = new Player(Deck.dealHand() , 'opponent');
 
+			this.opponent2 = new Player(Deck.dealHand(), 'opponent2');
+
+			this.opponent3 = new Player(Deck.dealHand(), 'opponent3');
+
 			this.player = new Player( Deck.dealHand(), 'player');
 
 			var tempTrash = [];
@@ -350,6 +372,8 @@ var GinRummy = (function() {
 			this.trash.addTrash(Deck.popTop());
 
 			document.getElementById(this.opponent.element).innerHTML = this.opponent.showHand();
+			document.getElementById(this.opponent2.element).innerHTML = this.opponent2.showHand();
+			document.getElementById(this.opponent3.element).innerHTML = this.opponent3.showHand();
 			document.getElementById(this.player.element).innerHTML = this.player.showHand();
 			document.getElementById("trash").innerHTML = this.trash.showTrash();
 

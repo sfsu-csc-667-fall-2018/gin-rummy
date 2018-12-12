@@ -13,6 +13,20 @@
 	width: 100%;
 }
 
+#opponent2 {
+	text-align: center;
+	justify-content: center;
+	height: 214px;
+	width: 100%;
+}
+
+#opponent3 {
+	text-align: center;
+	justify-content: center;
+	height: 214px;
+	width: 100%;
+}
+
 #trash {
 	text-align: center;
 	display: flex;
@@ -39,11 +53,25 @@
 	border-radius: 5px;
 }
 
+#gameState, #gameGuide {
+	text-align: center;
+}
+
 #discard {
 	position: relative;
 	margin: 2px;
 	background-color: #f3f6d2;
 	border-radius: 5px;
+}
+
+#opponent2 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#opponent3 {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .card {
@@ -61,6 +89,10 @@
 	cursor: pointer;
 }
 
+#trashpile:hover {
+	cursor: pointer;
+}
+
 .suit {
 	margin: auto;
 	font-size: 65px;
@@ -68,7 +100,7 @@
 
 .cardback {
 	position: relative;
-	width: 90px;
+	width: 80px;
 	height: 130px;
 	/*background-color: black;*/
 	background-image: url('../assets/cardback.jpg');
@@ -78,6 +110,20 @@
 	margin: 2px;
 	border-radius: 5px;
 	/*border: 2px solid red;*/
+}
+
+.cardback-side {
+	position: relative;
+	width: 130px;
+	height: 60px;
+	/*background-color: black;*/
+	background-image: url('../assets/cardback90.jpg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: flex;
+	border-radius: 5px;
+	margin-top: 3px;
+	margin-bottom: 0;
 }
 
 .trashpile {
@@ -103,4 +149,8 @@
 
 .CLUBS {
 	color: black;
+}
+
+body {
+	background-color: #256d26;
 }
