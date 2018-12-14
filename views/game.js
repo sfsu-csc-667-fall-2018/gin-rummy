@@ -1,5 +1,8 @@
 var GinRummy = (function() {
 
+	var gameKnockedFlag = false;
+	var playAgainFlag = false;
+
 	function Card(rank, suit) {
 		this.rank = rank;
 		this.suit = suit;
@@ -28,11 +31,41 @@ var GinRummy = (function() {
 			</div></button>`;
 	}
 
-	Card.prototype.showOpCard = function(i) {
+	Card.prototype.showCardLS = function(i) {
+		var suitUnicodes = {
+				'CLUBS' : '&#9827;',
+				'HEARTS' : '&#9829;',
+				'DIAMONDS' : '&#9830;',
+				'SPADES' : '&#9824;'
+			}
+
+		return `<button id="discard" type="button" value="` + i + `" disabled>
+			<div class="card-sides ` + this.suit + `">
+			<div class="suit-sides-left">`+ suitUnicodes[this.suit] + `</div>
+			<div class="rank-sides-left">` + this.rank + `</div>
+			</div></button>`;
+	}
+
+	Card.prototype.showCardRS = function(i) {
+		var suitUnicodes = {
+				'CLUBS' : '&#9827;',
+				'HEARTS' : '&#9829;',
+				'DIAMONDS' : '&#9830;',
+				'SPADES' : '&#9824;'
+			}
+
+		return `<button id="discard" type="button" value="` + i + `" disabled>
+			<div class="card-sides ` + this.suit + `">
+			<div class="rank-sides-right">` + this.rank + `</div>
+			<div class="suit-sides-right">`+ suitUnicodes[this.suit] + `</div>
+			</div></button>`;
+	}
+
+	Card.prototype.showHiddenCard = function(i) {
 		return `<div class="cardback" value"` + i + `"></div>`;
 	}
 
-	Card.prototype.showOp2Card = function(i) {				
+	Card.prototype.showHiddenCardSides = function(i) {				
 		return `<div class="cardback-side" value"` + i + `"></div>`;
 	}
 
@@ -82,32 +115,53 @@ var GinRummy = (function() {
 	}
 
 	Player.prototype.showHand = function() {
-		var hand = "";
-		if( this.element == 'player') {
-			for(var i = 0; i < this.hand.length; i++) {
-				hand += this.hand[i].showCard(i);
+		var hand = ""; 
+		if( gameKnockedFlag ) {
+			if( this.element == 'player') {
+				for(var i = 0; i < this.hand.length; i++) {
+					hand += this.hand[i].showCard(i);
+				}
+				return hand;
 			}
+			else if( this.element == 'opponent') {
+				for(var i = 0; i < this.hand.length; i++) {
+					hand += this.hand[i].showCard(i);
+				}
 			return hand;
-		} 
-		else if( this.element == 'opponent') {
-			for(var i = 0; i < this.hand.length; i++) {
-				hand += this.hand[i].showOpCard(i);
 			}
+			else if( this.element == 'opponent2' ) {
+				for(var i = 0; i < this.hand.length; i++) {
+					hand += this.hand[i].showCardLS(i);
+				}
 			return hand;
-		}
-		else if( this.element == 'opponent2') {
-			for(var i = 0; i < this.hand.length; i++) {
-				hand += this.hand[i].showOp2Card(i);
+			}
+			else if( this.element == 'opponent3' ) {
+				for(var i = 0; i < this.hand.length; i++) {
+					hand += this.hand[i].showCardRS(i);
+				}
 			}
 			return hand;
 		}
 		else {
-			for(var i = 0; i < this.hand.length; i++) {
-				hand += this.hand[i].showOp2Card(i);
+			if( this.element == 'player') {
+				for(var i = 0; i < this.hand.length; i++) {
+					hand += this.hand[i].showCard(i);
+				}
+				return hand;
 			}
-			return hand;
+			else if( this.element == 'opponent') {
+				for(var i = 0; i < this.hand.length; i++) {
+					hand += this.hand[i].showHiddenCard(i);
+				}
+				return hand;
+			}
+			else if( this.element == 'opponent2' || this.element == 'opponent3') {
+				for(var i = 0; i < this.hand.length; i++) {
+					hand += this.hand[i].showHiddenCardSides(i);
+				}
+				return hand;
+			}
 		}
-
 	}
 
 	Player.prototype.checkHandSize = function() {
@@ -259,13 +313,16 @@ var GinRummy = (function() {
 	var Game = new function() {
 		this.gameStarted = false;
 
+		/*
+			Note: knockbutton enabled to test revealing of cards. to disable set
+		*/
+
 		this.startHandler = function() {
 			Game.startGame();
 			this.startButton.disabled = true
 			this.sortButton.disabled = false
-			// this.pickupButton.disabled = false
 			this.drawButton.disabled = false
-			this.knockButton.disabled = true
+			this.knockButton.disabled = false
 		}
 
 		this.sortHandler = function() {
@@ -280,7 +337,7 @@ var GinRummy = (function() {
 			var card = Deck.deck.pop()
 			this.player.addCard(card)
 
-			document.getElementById(this.player.element).innerHTML += card.showCard(this.player.hand.length-1);
+			this.update();
 
 			if(this.player.checkHandSize()) {
 				var discardButtons = document.querySelectorAll('[id^="discard"]');
@@ -296,8 +353,7 @@ var GinRummy = (function() {
 			var card = this.trash.popTrash();
 			this.player.addCard(card)
 
-			document.getElementById(this.player.element).innerHTML = this.player.showHand();
-			document.getElementById('trash').innerHTML = this.trash.showTrash();
+			this.update();
 
 			if(this.player.checkHandSize()) {
 				this.drawButton.disabled = true;
@@ -308,8 +364,6 @@ var GinRummy = (function() {
 					discardButtons[i].disabled = false;
 					discardButtons[i].addEventListener('click', this.discardEvent.bind(this, i))
 				}
-
-
 			}
 		}
 
@@ -317,6 +371,10 @@ var GinRummy = (function() {
 			this.drawButton.disabled = true
 			// this.pickupButton.disabled = true
 			this.sortButton.disabled = true
+			this.knockButton.disabled = true
+			gameKnockedFlag = true
+
+			this.update();
 		}
 
 		// Event when card is drawn, player
@@ -328,8 +386,7 @@ var GinRummy = (function() {
 
 			this.trash.addTrash(this.player.discardCard(i));
 
-			document.getElementById(this.player.element).innerHTML = this.player.showHand();
-			document.getElementById('trash').innerHTML = this.trash.showTrash();
+			this.update();
 
 			this.pickupButton = document.getElementById('trashpile');
 			this.pickupButton.addEventListener('click', this.pickupHandler.bind(this));
@@ -338,17 +395,36 @@ var GinRummy = (function() {
 			this.sortButton.disabled = false
 		}
 
+		this.playAgainHandler = function() {
+			this.playAgainButton.disabled = true;
+			playAgainFlag = true;
+		}
+
+		/*
+			UPDATE: updates the html to show changes in game
+		*/
+
+		this.update = function() {
+			document.getElementById(this.opponent.element).innerHTML = this.opponent.showHand();
+			document.getElementById(this.opponent2.element).innerHTML = this.opponent2.showHand();
+			document.getElementById(this.opponent3.element).innerHTML = this.opponent3.showHand();
+			document.getElementById(this.player.element).innerHTML = this.player.showHand();
+			document.getElementById("trash").innerHTML = this.trash.showTrash();
+		}
+
 		this.init = function() {
 			this.startButton = document.getElementById('start')
 			this.sortButton = document.getElementById('sort')
 			this.knockButton = document.getElementById('knock')
 			this.drawButton = document.getElementById('draw')
+			this.playAgainButton = document.getElementById('vote')
 			// this.pickupButton = document.getElementById('pickup')
 
 			this.startButton.addEventListener('click', this.startHandler.bind(this))
 			this.sortButton.addEventListener('click', this.sortHandler.bind(this))
 			this.knockButton.addEventListener('click', this.knockHandler.bind(this))
 			this.drawButton.addEventListener('click', this.drawHandler.bind(this))
+			this.playAgainButton.addEventListener('click', this.playAgainHandler.bind(this))
 			// this.pickupButton.addEventListener('click', this.pickupHandler.bind(this))
 		}
 
@@ -371,11 +447,7 @@ var GinRummy = (function() {
 
 			this.trash.addTrash(Deck.popTop());
 
-			document.getElementById(this.opponent.element).innerHTML = this.opponent.showHand();
-			document.getElementById(this.opponent2.element).innerHTML = this.opponent2.showHand();
-			document.getElementById(this.opponent3.element).innerHTML = this.opponent3.showHand();
-			document.getElementById(this.player.element).innerHTML = this.player.showHand();
-			document.getElementById("trash").innerHTML = this.trash.showTrash();
+			this.update();
 
 			this.pickupButton = document.getElementById('trashpile');
 

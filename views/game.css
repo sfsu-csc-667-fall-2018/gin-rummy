@@ -3,6 +3,14 @@
 	padding-top: 20px;
 }
 
+#center {
+	margin: auto;
+}
+
+#turn, #user-turn {
+	text-align: center;
+} 
+
 #opponent {
 	text-align: center;
 	display: flex;
@@ -53,7 +61,7 @@
 	border-radius: 5px;
 }
 
-#gameState, #gameGuide {
+#gameGuide {
 	text-align: center;
 }
 
@@ -62,6 +70,18 @@
 	margin: 2px;
 	background-color: #f3f6d2;
 	border-radius: 5px;
+}
+
+.op-name {
+	text-align: center;
+}
+
+#op-name2 {
+	padding: 20%;
+}
+
+#op-name3 {
+	padding: 20%;
 }
 
 #opponent2 {
@@ -85,6 +105,17 @@
 	text-align: center;
 }
 
+.card-sides {
+	position: relative;
+	width: 90px;
+	height: 60px;
+	font-size: 28px;
+	display: flex;
+	border-radius: 5px;
+	margin-top: 3px;
+	margin-bottom: 0;
+}
+
 #discard:hover {
 	cursor: pointer;
 }
@@ -93,9 +124,31 @@
 	cursor: pointer;
 }
 
+.rank-sides-right {
+	transform: rotate(-90deg);
+	margin: auto;
+}
+
+.rank-sides-left {
+	transform: rotate(90deg);
+	margin: auto;
+}
+
 .suit {
 	margin: auto;
 	font-size: 65px;
+}
+
+.suit-sides-right {
+	margin: auto;
+	font-size: 50px;
+	transform: rotate(-90deg);
+}
+
+.suit-sides-left {
+	margin: auto;
+	font-size: 50px;
+	transform: rotate(90deg);
 }
 
 .cardback {
