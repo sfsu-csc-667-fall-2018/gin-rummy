@@ -111,41 +111,23 @@ for (let i=0; i < 4; i++) {
 	}
 }
 
+// init game
 
-let game = new Game ();
+let game = new Game()
 
-
-
-
+// init socket
 
 const server = http.createServer(app)
-
 let io = socketIO(server)
+
+// init chatBox
+
 new ChatBox('/lobby', io)
-new ChatBox('/game', io)
+new ChatBox('/gameChat', io)
 
+// game initialize
 
-
-
-
-
-
-
-
-
-app.get('/tests', (req, res)=> {
-
-db.any(`INSERT INTO test_table ("testString") VALUES ('Hello at $
-{Date.now()}')`)
-.then( _ => db.any(`SELECT * FROM test_table`) )
-.then( results => res.json( results ) )
-.catch( error => {
-
-	console.log(error)
-})
-
-})
-
+var gameSocket = io.of('/game')
 
 
 app.get('/create', (req, res)=> {
@@ -190,6 +172,29 @@ app.get('/cards', (req, res) => {
 	   .catch(error => {
 	   	   console.log(error)
 	   })
+})
+
+
+app.get('/create_game', (req, res)=> {
+	   
+
+	// db.any(`create table game
+	// ("game_id" serial PRIMARY KEY,
+	// "player_id" INT NOT NULL,
+	//  constraint "fk_player_id"
+    //  foreign key (player_id) 
+    //  REFERENCES players (player_id))`)
+	// .then (results=> {
+
+		db.any(`select from game`)
+		.then (results=> {
+		 
+		res.send(results)
+	})
+	.catch(error=> {
+		  
+		res.send(error)
+	})
 })
 
 

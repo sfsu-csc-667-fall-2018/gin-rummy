@@ -36,7 +36,7 @@
 
 <script>
 
-    let socket = io()
+    let socket = io('/game')
 
     socket.emit('newUser', '<%=username%>')
     
@@ -58,10 +58,11 @@
               document.getElementById("your").appendChild(p)
         }
     
-
-        console.log('game started')
           
           document.getElementById("game_state").innerHTML = "game started"
+          
+
+
 
           
     })

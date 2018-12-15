@@ -43,7 +43,16 @@ $(function() {
 });
 </script>
 
-<div class="lobbyBox">This is going to be the lobby box.</div>
+
+
+<div class="lobbyBox">
+
+    <form action='/game/<%=Math.random()%>' method='POST'>
+
+        <input type="submit" value="Create Game">
+
+    </form>
+</div>
 
 <body>
     <ul id="messages"></ul>

@@ -10,7 +10,9 @@ class ChatBox {
     init() {
           
    let chatBox = this.io.of(this.namespace)
+
    chatBox.on('connection', function(socket) {
+       
 	socket.on('chat message',function(msg) {
 		console.log('chat message')
 		let message = msg.user + ": " + msg.val
