@@ -1,6 +1,4 @@
  
-
-
 const express = require('express')
 
 const app = express()
@@ -18,7 +16,9 @@ const socketIO = require('socket.io')
 var ejs = require('ejs');
 //db.connect()
 
-const db = require('./config/config')
+const config = require('./config/config')
+
+const db = pgp(config)
 
 const path = require('path')
 
