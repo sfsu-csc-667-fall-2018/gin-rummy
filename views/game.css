@@ -1,0 +1,209 @@
+#game {
+	position: relative;
+	padding-top: 20px;
+}
+
+#center {
+	margin: auto;
+}
+
+#turn, #user-turn {
+	text-align: center;
+} 
+
+#opponent {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*flex-direction: column;*/
+	height: 214px;
+	width: 100%;
+}
+
+#opponent2 {
+	text-align: center;
+	justify-content: center;
+	height: 214px;
+	width: 100%;
+}
+
+#opponent3 {
+	text-align: center;
+	justify-content: center;
+	height: 214px;
+	width: 100%;
+}
+
+#trash {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 214px;
+	width: 100%;
+}
+
+#player {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*flex-direction: column;*/
+	height: 214px;
+	width: 100%;
+} 
+
+#trashpile {
+	position: relative;
+	background-color: #f3f6d2;
+	border-radius: 5px;
+}
+
+#gameGuide {
+	text-align: center;
+}
+
+#discard {
+	position: relative;
+	margin: 2px;
+	background-color: #f3f6d2;
+	border-radius: 5px;
+}
+
+.op-name {
+	text-align: center;
+}
+
+#op-name2 {
+	padding: 20%;
+}
+
+#op-name3 {
+	padding: 20%;
+}
+
+#opponent2 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#opponent3 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.card {
+	position: relative;
+	width: 70px;
+	height: 120px;
+	background-color: #f3f6d2;
+	display: flex;
+	margin: 2px;
+	font-size: 28px;
+	text-align: center;
+}
+
+.card-sides {
+	position: relative;
+	width: 90px;
+	height: 60px;
+	font-size: 28px;
+	display: flex;
+	border-radius: 5px;
+	margin-top: 3px;
+	margin-bottom: 0;
+}
+
+#discard:hover {
+	cursor: pointer;
+}
+
+#trashpile:hover {
+	cursor: pointer;
+}
+
+.rank-sides-right {
+	transform: rotate(-90deg);
+	margin: auto;
+}
+
+.rank-sides-left {
+	transform: rotate(90deg);
+	margin: auto;
+}
+
+.suit {
+	margin: auto;
+	font-size: 65px;
+}
+
+.suit-sides-right {
+	margin: auto;
+	font-size: 50px;
+	transform: rotate(-90deg);
+}
+
+.suit-sides-left {
+	margin: auto;
+	font-size: 50px;
+	transform: rotate(90deg);
+}
+
+.cardback {
+	position: relative;
+	width: 80px;
+	height: 130px;
+	/*background-color: black;*/
+	background-image: url('../assets/cardback.jpg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: flex;
+	margin: 2px;
+	border-radius: 5px;
+	/*border: 2px solid red;*/
+}
+
+.cardback-side {
+	position: relative;
+	width: 130px;
+	height: 60px;
+	/*background-color: black;*/
+	background-image: url('../assets/cardback90.jpg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: flex;
+	border-radius: 5px;
+	margin-top: 3px;
+	margin-bottom: 0;
+}
+
+.trashpile {
+	position: relative;
+	width: 90px;
+	height: 130px;
+	background-color: red;
+	display: flex;
+	border-radius: 5px;
+}
+
+.HEARTS {
+	color: red;
+}
+
+.DIAMONDS {
+	color: red;
+}
+
+.SPADES {
+	color: black;
+}
+
+.CLUBS {
+	color: black;
+}
+
+body {
+	background-color: #256d26;
+}

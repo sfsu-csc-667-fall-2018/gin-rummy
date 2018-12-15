@@ -6,15 +6,46 @@
 <html>
 <head>
 	<title></title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="game.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="container">
 	<div id="game">
-		<div id="opponent"></div>
-		<div id="player"></div>
-		<div id="gameState">
-			<div id="turn">Turn: 
-				<div id="user-turn">Player 1</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-2" id="center">
+					<span id="op-name2">Opponent 2</span>
+					<div class="row" id="opponent2"></div>
+				</div>
+				<div class="col-8" id="center">
+					<div><p class="op-name">Opponent 1</p>
+					<div id="opponent"></div>
+					</div>
+					<div id="trash"></div>
+				</div>
+				<div class="col-2" id="center">
+					<span id="op-name3">Opponent 3</span>
+					<div class="row" id="opponent3"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class=></div>
+				<div class="col-12">
+					<div id="gameState">
+						<div id="turn"><span id="turn">Turn: </span>
+							<span id="user-turn">Player 1</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div id="player"></div>
+				</div>
+				<div class="col-2"></div>
 			</div>
 		</div>
 	</div>
@@ -22,7 +53,7 @@
 		<hr/>
 	</div>
 	<div id="gameBoard">
-		<div id="gameState">Press 'Start' to begin game</div>
+		<div id="gameGuide">Press 'Start' to begin game</div>
 	</div>
 	<div id="border">
 		<hr/>
@@ -32,10 +63,8 @@
 		<button id="sort" type="button" disabled>SORT</button>
 		<button id="knock" type="button" disabled>KNOCK</button>
 		<button id="draw" type="button" disabled>DRAW</button>
-		<button id="pickup" type="button" disabled>PICKUP</button>
+		<button id="vote" type="button" disabled>PLAY AGAIN</button>
 	</div>
-	<div>
-</div>
 <script type="text/javascript" src="game.js"></script>
 <script type="text/javascript">
 	GinRummy.init();
