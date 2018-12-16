@@ -1,46 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
-    .navbar{font-size: 18px;}
-    table, th, td{
-        border: 2px solid black;
-        border-collapse: collapse;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
+        .navbar {
+            font-size: 18px;
+        }
+
+        table {
+            width: 80%;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
-
-
 </head>
 
 <body>
-    <div className="navbar"> <% include navbar %> </div>
-    <table style="width: 80%">
-    <tr>
-        <th>Rank</th>
-        <th>Username</th>
-        <th>Score</th>
-    </tr>
+    <div className="navbar">
+        <% include navbar %>
+    </div>
 
-    <tr>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-
-    <tr>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    
-    
-    
-    
-    
+    <table id="myTable">
+        <tr>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Wins</th>
+        </tr>
     </table>
 
+    <div id="table"></div>
+
+    <script>
+        function newDiv(rank, username, wins) {
+            var table = document.getElementById('myTable');
+            var row = table.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = rank;
+            cell2.innerHTML = username;
+            cell3.innerHTML = wins;
+        }
+
+        var i;
+        for (i = 1; i < 11; i++) {
+            newDiv(i, 'player name', 'wins');
+        }
+    </script>
 </body>
+
 </html>

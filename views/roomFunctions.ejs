@@ -1,0 +1,34 @@
+<script>
+    function createRoom(roomNum, roomName, playerNum) {
+        return '<div class="container">' +
+            '<div class="row">' +
+            '<div class="col-sm">' +
+            roomNum +
+            '</div>' +
+            '<div class="col-sm">' +
+            roomName +
+            '</div>' +
+            '<div class="col-sm">' +
+            playerNum +
+            '</div>' +
+            '<div class="col-sm">' +
+            '<button id="joinRoom" onclick="joinRoom()"> Join</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    }
+
+    function createBtn() {
+        var div = document.createElement('div');
+        var roomNum = document.getElementById("roomNum").value;
+        var roomName = document.getElementById("roomName").value;
+
+        var roomNumInt = parseInt(roomNum, 10);
+        if (roomNumInt > 0 && roomNumInt < 101) {
+            div.innerHTML = createRoom(roomNum, roomName, "1");
+            document.getElementById("roomInfo").appendChild(div);
+        } else {
+            alert("Please enter a room number between 1-100");
+        }
+    }
+</script>
