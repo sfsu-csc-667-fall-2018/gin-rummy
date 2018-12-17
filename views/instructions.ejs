@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .title {
+            text-align: center;
+        }
+
+        .rules {
+            text-align: left;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <% include navbar %>
+    <h1 class="title">How to play</h1>
+
+    <div class="rules">
+
+        <h2>Players</h2>
+        4 Players
+        <br></br>
+
+        <h2>Deck</h2>
+        52 Cards
+        <br></br>
+
+        <h2>Card Values</h2>
+        Face Cards (K,Q,J): 10 Points
+        Ace: 1 Point
+        Number cards are worth their spot (index) value
+        <br></br>
+
+        <h2>Objective</h2>
+        The objective of the game is to collect a hand where most or all of the cards can be
+        combined into sets and runs and points of the remaining unmatched cards is low. Card combinations can only
+        belong to one combination at a time.
+        <br></br>
+        Run: Is a sequence of cards in the same suit in consecutive order
+        <br></br>
+        Set: three or four cards of the same rank
+        <br></br>
+
+        <h2>Game Play</h2>
+        Draw: The game begins by drawing a card from the top of the stock or the top of the discard.
+        Once chosen, the card will be added to your hand. The stock is faced down and the discard is faced up.
+
+        Discard: Finish your turn by discarding one card from your hand after drawing.
+
+        Knocking: Ending the play after drawing a card, if you have valid sets and runs. The player can knock by
+        discarding one card facedown on the
+        discard pile. This will expose the players entire hand. This will rearrange the hand until it has
+        the most possible sets and runs. All unmatched cards(deadwood) has to have 10 points or less in value.
+
+        Gin: Going gin is knocking but without any unmatched cards. Going gin will grant bonus points.
+        <br></br>
+
+        <h2>Scoring</h2>
+        Each player counts the total value of their unmatched cards. If the knocker's count is lower, the knocker
+        scores the difference between the two counts.
+        If the knocker did not go gin, and the counts are equal, or greater than the opponents, the knocker has been
+        undercut.
+
+        Undercut: The knocker's opponent scores the difference between the counts plus a 10 point bonus.
+
+        A player who scores gin scores a bonus 20 points. Plus the opponents' count in unmatched cards. A player who
+        goes gin,
+        cannot be undercut.
+    </div>
+</body>
+
+</html>
