@@ -1,0 +1,650 @@
+/* HTML tags */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+a {
+  color: #fff;
+}
+
+/* CUSTOM */
+
+#availableGames  {
+  margin-right: 15px;
+  margin-left: 15px;
+  border: 10px solid #ff8c00;
+  background-color: #fffacd;
+  border-radius: 5px;
+  height: 100%;
+  font-size: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#gamesListContainer {
+  margin-right: 15px;
+  margin-left: 15px;
+  color: black;
+  border: 5px solid #ff8c00;
+  background-color: white;
+  border-radius: 1px;
+  height: 250px;
+  overflow-y: scroll;
+}
+
+#gamesListContainer li:nth-child(odd) {
+  background: #fffacd;
+}
+
+#chat-container {
+  width: 100%;
+  height: 250px;
+}
+
+#chat-box {
+  width: 100%;
+  height: 100%;
+  margin-right: 15px;
+  margin-left: 15px;
+  border: 5px solid #ff8c00;
+  background-color: white;
+  border-radius: 15px;
+  overflow-y: scroll;
+  position: relative;
+  text-align: left;
+}
+
+#chat{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+#messages li:nth-child(odd) {
+  background: #fffacd;
+}
+
+#send-button, #chat-input {
+  margin-top: 10px;
+}
+
+#Message{
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: pink;
+    text-align: center;
+    color: black;
+}
+
+/* HELPER CLASSES */
+#nav {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.bottom-buffer {
+  margin-bottom: 25px;
+}
+
+.background-login-form {
+  background-color: rgba(52,73,94,0.7);
+  border-radius: 4px;
+}
+
+/* .background-green {
+    background-color: #1abc9c;
+    padding-bottom: 140px;
+} */
+
+/* #game_space {
+    background-color: #1abc9c;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 120px;
+} */
+
+#waitingArea
+{
+    background-color: #1abc9c; /* Green */
+    color: #ffffff;
+    text-align: center;
+    padding-top: 15%;
+    padding-bottom: 25%;
+}
+
+#OpponentHand{
+    padding-bottom: 30px
+}
+
+#Deck{
+    padding-bottom: 30px;
+    text-align: left;
+}
+
+#DiscardPile{
+    padding-bottom: 30px;
+    text-align: left;
+}
+
+#divider{
+    width:6px;
+    height:auto;
+    display: inline-block;
+}
+
+
+
+#card1{
+    background: url(../img/playcard.png) 0 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card2{
+    background: url(../img/playcard.png) -72px 0;
+    display:inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card3{
+    background: url(../img/playcard.png) -144px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card4{
+    background: url(../img/playcard.png) -216px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card5{
+    background: url(../img/playcard.png) -288px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card6{
+    background: url(../img/playcard.png) -360px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card7{
+    background: url(../img/playcard.png) -432px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card8{
+    background: url(../img/playcard.png) -504px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card9{
+    background: url(../img/playcard.png) -576px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card10{
+    background: url(../img/playcard.png) -648px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card11{
+    background: url(../img/playcard.png) -720px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card12{
+    background: url(../img/playcard.png) -792px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card13{
+    background: url(../img/playcard.png) -864px 0;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card14{
+    background: url(../img/playcard.png) 0px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card15{
+    background: url(../img/playcard.png) -72px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card16{
+    background: url(../img/playcard.png) -144px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card17{
+    background: url(../img/playcard.png) -216px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card18{
+    background: url(../img/playcard.png) -288px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card19{
+    background: url(../img/playcard.png) -360px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card20{
+    background: url(../img/playcard.png) -432px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card21{
+    background: url(../img/playcard.png) -504px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card22{
+    background: url(../img/playcard.png) -576px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card23{
+    background: url(../img/playcard.png) -648px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card24{
+    background: url(../img/playcard.png) -720px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card25{
+    background: url(../img/playcard.png) -792px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card26{
+    background: url(../img/playcard.png) -864px -98px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card27{
+    background: url(../img/playcard.png) 0px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card28{
+    background: url(../img/playcard.png) -72px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card29{
+    background: url(../img/playcard.png) -144px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card30{
+    background: url(../img/playcard.png) -216px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card31{
+    background: url(../img/playcard.png) -288px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card32{
+    background: url(../img/playcard.png) -360px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card33{
+    background: url(../img/playcard.png) -432px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card34{
+    background: url(../img/playcard.png) -504px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card35{
+    background: url(../img/playcard.png) -576px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card36{
+    background: url(../img/playcard.png) -648px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card37{
+    background: url(../img/playcard.png) -720px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card38{
+    background: url(../img/playcard.png) -792px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card39{
+    background: url(../img/playcard.png) -864px -196px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card40{
+    background: url(../img/playcard.png) 0px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card41{
+    background: url(../img/playcard.png) -72px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card42{
+    background: url(../img/playcard.png) -144px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card43{
+    background: url(../img/playcard.png) -216px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card44{
+    background: url(../img/playcard.png) -288px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card45{
+    background: url(../img/playcard.png) -360px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card46{
+    background: url(../img/playcard.png) -432px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card47{
+    background: url(../img/playcard.png) -504px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card48{
+    background: url(../img/playcard.png) -576px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card49{
+    background: url(../img/playcard.png) -648px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card50{
+    background: url(../img/playcard.png) -720px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card51{
+    background: url(../img/playcard.png) -792px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card52{
+    background: url(../img/playcard.png) -864px -294px;
+    display: inline-block;
+    width: 72px;
+    height: 98px;
+}
+
+#card53{
+    background: url(../img/rear.png);
+    display: inline-block;
+    width: 72px;
+    height: 100px;
+    background-size:contain;
+}
+
+#body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1;
+    color: #f5f6f7;
+}
+
+p {font-size: 16px;}
+
+#margin {
+    margin-bottom: 450px;
+}
+
+#temp_meld {
+    border: 2px solid #ff8c00;
+    max-width: 30%;
+    display: table;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right : 20px;
+    padding-left :20px;
+}
+
+#minimeld1{
+    display: inline;
+    width: 8%;
+    height: auto;
+    margin-top: 5px;
+}
+
+#minimeld2{
+    display: inline;
+    width: 8%;
+    height: auto;
+    margin-top: 5px;
+}
+
+#minimeld4{
+    display: inline;
+    width: 3%;
+    height: auto;
+    margin-top: 5px;
+}
+
+#rule{
+    background-color: #fffacd;
+    color: black;
+    font-family: sans-serif;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+#rummy_rule{
+    color:black;
+    text-align: center;
+}
+
+#rule_texts{
+    display: inline-block;
+    font-size: 20px;
+    line-height: 145%;
+}
+
+#gameplay_detail{
+    display: inline-block;
+    font-size: 20px;
+    line-height: 145%;
+}
+
+#about_us{
+    color:black;
+    text-align: center;
+}
+
+#about_texts{
+    display: inline-block;
+    font-size: 25px;
+    line-height: 160%;
+}
+
+#leaderBoard{
+    font-size: 150%;
+    text-align: center;
+    background-color: #f5f6f7;
+}
+#scoreBoard{
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    width: 100%;
+}
+
+#score_row{
+    border: 1px solid black;
+    font-size: 120%;
+    text-align: center;
+    height: 30px;
+}
+#score_tuple{
+    border: 1px solid black;
+    text-align: center;
+    height: 30px;
+    background-color: lemonchiffon;
+
+}
+
+#score_board_user{
+    border: 1px solid black;
+    text-align: center;
+    height: 40px;
+    background-color: bisque;
+}
+
+
+#player_state{
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#sign_up_text{
+    font-size: 120%;
+}
+
+#menu{
+  color: #1abc9c !important;
+}
+
+#meld_area{
+  padding-left: 10%;
+}
+
+a.disabled{ 
+   color:gray; 
+}
