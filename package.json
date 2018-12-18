@@ -4,11 +4,7 @@
   "description": "Rummy Card Game",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "db:create:migration": "sequelize migration:generate --name "
-    
+    "start" : "node app.js"    
   },
 
   "repository": {
