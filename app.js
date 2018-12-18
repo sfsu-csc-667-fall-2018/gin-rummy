@@ -35,9 +35,9 @@ const connection = {
 const db = pgp(process.env.DATABASE_URL || connection)
 
 //routes
-const index = require('./routes/index')(db,io)
-const lobby = require('./routes/lobby')(db, io)
-const game = require('./routes/game')(db, io)
+const index = require('./controllers/index')(db,io)
+const lobby = require('./controllers/lobby')(db, io)
+const game = require('./controllers/game')(db, io)
 
 // view engine setup using ejs templating engine
 
