@@ -4,9 +4,8 @@
   "description": "Rummy Card Game",
   "main": "app.js",
   "scripts": {
-    "start" : "node app.js"    
+    "start": "node app.js"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sfsu-csc-667-fall-2018/gin-rummy.git"

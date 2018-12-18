@@ -22,20 +22,24 @@
       #messages {list-style-type: none; text-align: left; padding: 0; width: 600px; margin-left: auto; margin-right: auto; margin-top: 20px;}
       #messages li { padding: 5px 10px;}
       #messages li:nth-child(odd) { background: #eee;}
+      #message-box { 
+        border: 1px solid #13c0f9; 
+        border-radius: 5px;
+      }
+      #availableGames { text-align: center }
   </style>
   
 </head>
 <body>
-    <div className="navbar"><% include navbar2 %></div>
-    
-      <h1> Welcome to the Lobby, <%=username%></h1>
-    
+    <div className="navbar"><% include navbar %></div>
+      <h1 style="text-align: center"> Welcome to the Lobby, <%=username%></h1>
+      <hr>
       <div style='float:right;'>
     </div>
     
       <div class="container-fluid background-green">
          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" id="message-box">
               <div class="row" id="chat-container">
                 <div class="col-md-12" id="chat-box">
                     <ul class="list-unstyled" id="messages"></ul>
@@ -48,13 +52,19 @@
               </div>
               <input style="visibility: hidden" id="target" value="d">
             </div>
-            <div class="col-md-6">
-              <div class="row text-center" id="availableGames"><span>Available Games</span></div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5" id="game-box">
+              <div class="row">
+                <div class="col-md-12">
+              <div class="row" id="availableGames"><h1>Available Games</h1></div>
               <div class="row text-center" id="gamesListContainer">
                   <ul class="list-unstyled" id="gameList"></ul>
+                  </div>
               </div>
               <br>
               <p class="text-center"><button class="btn btn-primary" id="new-game-btn" type="button">Create New Game</button></p>
+            </div>
             </div>
          </div>
       </div>
