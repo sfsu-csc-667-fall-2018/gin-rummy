@@ -28,6 +28,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "knuth-shuffle": "^1.0.8",
     "morgan": "^1.9.1",
     "pg-promise": "^8.5.0",
     "sequelize": "^4.39.0",
