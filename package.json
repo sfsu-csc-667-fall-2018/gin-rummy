@@ -6,17 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-<<<<<<< HEAD
     "dev": "nodemon app.js",
-    "db:create:migration": "sequelize migration:generate --name ",
-    "db:migrate": "sequelize db:migrate",
-    "db:rollback": "sequelize db:migrate:undo"
-=======
-    "db:create:migration": "sequelize migration:generate --name ",
-    "db:migrate" : "sequelize db:migrate",
-    "db:rollback": "sequelize db:migrate:undo"
-
->>>>>>> 73b3b9f099078257119987549f22be35a457de33
+    "db:create:migration": "sequelize migration:generate --name "
+    
   },
 
   "repository": {
@@ -31,7 +23,6 @@
   "homepage": "https://github.com/sfsu-csc-667-fall-2018/gin-rummy#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-<<<<<<< HEAD
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.1.0",
     "ejs": "^2.6.1",
@@ -44,13 +35,5 @@
     "sequelize-cli": "^5.1.0",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.1.1"
-=======
-    "dotenv": "^6.1.0",
-    "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "pg-promise": "^8.5.0",
-    "sequelize": "^4.39.0",
-    "sequelize-cli": "^5.1.0"
->>>>>>> 73b3b9f099078257119987549f22be35a457de33
   }
 }
