@@ -1,67 +1,64 @@
 <!doctype html>
 <html>
 
-<div className="navbar"><% include navbar %></div>
-<h1> Welcome to the Lobby, <%=username%></h1>
 
-<div style='float:right;'>
-
-
-</div>
-
-
-<style>
-    .navbar{font-size: 18px;}
-    .lobbyBox {display: inline-block; width: 60%; border: 5px solid black; padding: 5%;}
-    body { font: 13px Helvetica, Arial;}
-   
-
-    #chat_box{ background: white; padding: 6px;}
-    #m { background: white; border-style: solid; padding: 10px; width: 500px; display: inline-block;}
-    #send { background: rgb(130, 224, 255); padding: 10px; display:inline-block; width:100px;}
-
-    #messages {list-style-type: none; text-align: left; padding: 0; width: 600px; margin-left: auto; margin-right: auto; margin-top: 20px;}
-    #messages li { padding: 5px 10px;}
-    #messages li:nth-child(odd) { background: #eee;}
-</style>
-
-<script>
- 
- 
-
-</script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script type="text/javascript"> 
-
-$(function() {
-    var socket = io('/lobby');
-    $('#chat_box').submit(function() { 
-          socket.emit('chat message',{val: $('#m').val(), user: "<%=username%>"});
-          $('#m').val('');
-          return false;
-    });
-    socket.on('chat message', function(msg) {
-        $('#messages').append($('<li>').text(msg));
-    });
-});
-</script>
-
-
-
-<div class="lobbyBox">
-
-    <form action='/game/<%=Math.random()%>' method='POST'>
-
-        <input type="submit" value="Create Game">
-
-    </form>
-</div>
-
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/chat.js"></script>
+  <script type="text/javascript" src="/js/lobby.js"></script>
+  <style>
+      .navbar{font-size: 18px;}
+      .lobbyBox {display: inline-block; width: 60%; border: 5px solid black; padding: 5%;}
+      body { font: 13px Helvetica, Arial;}
+     
+  
+      #chat_box{ background: white; padding: 6px;}
+      #m { background: white; border-style: solid; padding: 10px; width: 500px; display: inline-block;}
+      #send { background: rgb(130, 224, 255); padding: 10px; display:inline-block; width:100px;}
+  
+      #messages {list-style-type: none; text-align: left; padding: 0; width: 600px; margin-left: auto; margin-right: auto; margin-top: 20px;}
+      #messages li { padding: 5px 10px;}
+      #messages li:nth-child(odd) { background: #eee;}
+  </style>
+  
+</head>
 <body>
-    <ul id="messages"></ul>
-    <form action ='' id="chat_box">
-      <input id="m" autocomplete="off" /><button id="send">Send</button>
-        
+    <div className="navbar"><% include navbar2 %></div>
+    
+      <h1> Welcome to the Lobby, <%=username%></h1>
+    
+      <div style='float:right;'>
+    </div>
+    
+      <div class="container-fluid background-green">
+         <div class="row">
+            <div class="col-md-6">
+              <div class="row" id="chat-container">
+                <div class="col-md-12" id="chat-box">
+                    <ul class="list-unstyled" id="messages"></ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                    <form class="form-inline" id="chat-form" method="post"><input class="submit_on_enter form-control" id="chat-input" type="text" name="chat-text" autocomplete="off" style="width:80%"><button class="btn btn-primary form-control" id="send-button" type="button" onclick="sendMessage()" value="Send" style="width:20%">Send</button></form>
+                </div>
+              </div>
+              <input style="visibility: hidden" id="target" value="d">
+            </div>
+            <div class="col-md-6">
+              <div class="row text-center" id="availableGames"><span>Available Games</span></div>
+              <div class="row text-center" id="gamesListContainer">
+                  <ul class="list-unstyled" id="gameList"></ul>
+              </div>
+              <br>
+              <p class="text-center"><button class="btn btn-primary" id="new-game-btn" type="button">Create New Game</button></p>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
   </body>
 </html>

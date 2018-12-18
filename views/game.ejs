@@ -2,94 +2,59 @@
 
 <head>
 
-     <title>Rummy Game </title>
+  <title>Rummy Game </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/chat.js"></script>
+  <script type="text/javascript" src="/js/bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
 
 </head>
 
-
-<body>
-
-<script src ="/socket.io/socket.io.js"></script>
+<body>   
 
 
-<h1 id="game_state"> Waiting ....  </h1>
-
-<h1>Your cards</h1>
-
-<div id="your">
-         
-</div>
-
-<h1>Stock</h1>
-<div id="stock">
-
-
-</div>
-
-<h1> Oppponent</h1>
-
-<div id="opponent">
-
-
-    
-</div>
-
-<script>
-
-    let socket = io('/game')
-
-    socket.emit('newUser', '<%=username%>')
-    
-    socket.on('game_start', (game)=> {
-
-        let playerName = '<%=username%>'
-
-        console.log("PlayerName: " + playerName)
-
-        let cards = getUserCards(playerName, game)
-
-
-        for (let i =0; i < cards.length; i++) {
-              
-              let card = cards[i]
-              let p = document.createElement('p')
-              let text = document.createTextNode(card.rank+card.suit)
-              p.appendChild(text)
-              document.getElementById("your").appendChild(p)
-        }
-    
-          
-          document.getElementById("game_state").innerHTML = "game started"
-          
-
-
-
-          
-    })
-
-    const getUserCards = (player, game)=> {
-           
-           if(game.players[0].username === player) {
-
-            console.log(player)
-            console.log(game.players[0].username)
-                
-               return game.players[0].cards
-           }
-
-           else {
-
-            console.log(game.players[1].cards)
-                 
-                return game.players[1].cards
-           }
-    }
-
-    </script>
-
-
+    <div id="gameArea">
+        <div class="col-md-9 container-fluid bg-1 text-center" id="game_space">
+            <div id="OpponentHand"></div>
+            <div class="col-md-12"></div>
+            <div class="col-md-5"></div>
+            <div class="col-md-1" id="Deck"></div>
+            <div class="col-md-6" id="DiscardPile"></div>
+            <div id="Deck"></div>
+            <button class="btn btn-warning btn-sm" id="meldToggle" type="button" value="meld_off">Start Meld</button>
+            <div id="divider"></div><br/><br/>
+            <div id="Message"></div><br/>
+            <p>-MELD-</p>
+            <div id="temp_meld"></div>
+            <div id="PlayerHand"></div>
+        </div>
+        <div class="col-md-3" id="chat">
+            <div class="row">
+               <div class="row" id="chat-container">
+                  <div class="col-md-12" id="chat-box">
+                     <ul class="list-unstyled" id="messages"></ul>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-12">
+                     <form class="form-inline" id="chat-form" method="post">
+                       <input class="submit_on_enter form-control" id="chat-input" type="text" name="chat-text" autocomplete="off" style="width:80%">
+                       <button class="btn btn-primary form-control" id="send-button" type="button" onclick="sendMessage()" value="Send" style="width:20%">Send</button></form>
+                  </div>
+               </div>
+               <input style="visibility: hidden" id="target" value="d">
+            </div>
+            <div class="row" id="meld_area">
+               <p>Melded Cards</p>
+            </div>
+         </div> 
+        <div id="waitingArea">
+            <div class="alert alert-danger text-center" id="waitMessage" role="alert"></div>
+        </div>
+    </div>
 </body>
-
-
 
 </html>
